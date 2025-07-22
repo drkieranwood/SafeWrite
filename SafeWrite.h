@@ -16,7 +16,7 @@ class SafeWrite
 {
   public:
   	enum options {
-		TEENSY, DRAGON
+		TEENSY, DRAGON, ADALOG
 	};
 	
     SafeWrite(options option);

@@ -36,6 +36,23 @@ int SafeWrite::init(void)
 			this->_isSDInit = true;
 		}
 	}
+
+	//Configure options depending upon board type
+	if (this->_board_type==ADALOG) {
+		this->SD_CS_PIN = 4;
+		int SD_FREQ = 5;
+		
+		if (!this->_sd.begin(SD_CS_PIN, SD_SCK_MHZ(SD_FREQ))) {
+			this->_isSDInit = false;
+			if (_serialDebug) {
+				this->_serial->println("Could not initialize adalogger SD card");
+			}
+			return 1;
+		}
+		else {
+			this->_isSDInit = true;
+		}
+	}
 	
 	if (this->_board_type==TEENSY) {
 		#ifndef SDCARD_SS_PIN
